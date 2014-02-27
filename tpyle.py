@@ -59,6 +59,7 @@ def main():
     while True:
         promptInput = raw_input(prompt)
 
+        # help #
         if promptInput.lower() in ("help", "h"):
             print "HELP\n\
           Open or o  - Open a file.\n\
@@ -68,7 +69,8 @@ def main():
           Help or h  - This help text.\n\
           Quit or q  - Quit the program.\n\
                   q! - Quit and lose changes.\n"
-
+        
+        # quit #
         elif promptInput.lower() in ("quit", "q", "q!"):
             if textBuffer == [] or fileWritten:
                 quit()
@@ -76,28 +78,33 @@ def main():
                 quit()
             else:
                 print "Use q! to exit without saving changes."
-        
+        # open file #
         elif promptInput.lower() in ("open", "o"):
             openFile()
-            
+        
+        # input mode #
         elif promptInput.lower() == "i":
             if fileLoaded == False:
                 inputMode(textBuffer)
-                
+        
+        # print buffer #
         elif promptInput.lower() in ("prnt", "pb"):
             if textBuffer == []:
                 print "Buffer empty"
             else:
                 for i in range(0, len(textBuffer)):
                     print textBuffer[i]
-                    
+        
+        # print line #
         elif type(promptInput) == int:
             printLine(textBuffer, promptInput)
-            
+        
+        # reset/clear buffer #
         elif promptInput.lower() == "reset":
             textBuffer = []
             print "Buffer reset.\n"
-            
+        
+        # write to file #
         elif promptInput.lower() in ("write", "w"):
             fileName = str(raw_input("File to write: "))
             FILE = open(fileName, 'w+')
