@@ -1,4 +1,6 @@
 """
+"   Written for Python 2.7.x
+"
 "   tPyLE - The tiny Python Line Editor
 "   Copyright (C) 2014  Austin Roberge
 "
@@ -119,7 +121,7 @@ def main():
                     break
                 toWriteBuf += "\n"
             FILE.write(toWriteBuf)
-            print "Wrote", len(textBuffer), "lines to file", fileName
+            print "Wrote", len(textBuffer), "lines to file", "'" + fileName + "'"
             FILE.close()
             fileWritten = True
             
