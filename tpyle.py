@@ -35,11 +35,12 @@ def main():
 
     def inputMode(buf):
       while True:
-        lineInput = str(raw_input()) 
+        lineInput = str(raw_input())
         if lineInput == ".":
           return buf
         else:
           buf.append(str(lineInput))
+          fileWritten = False
           
     def printLine(buf, lineNum):
         if abs(lineNum) > len(buf):
@@ -47,12 +48,12 @@ def main():
         elif lineNum < 0:        #if it's negative make it x from the end of the file
             lineNum = len(buf) - abs(lineNum)
         else:
-            print buf[lineNum]
+            print buf[lineNum -1]
 
 
-  ###############
-   ## MAIN LOOP ##
-  ###############
+  #################
+  ### MAIN LOOP ###
+  #################
   
     print "Welcome to tiny Python Line Editor!\n"
     prompt = ":: "
@@ -62,12 +63,13 @@ def main():
         # help #
         if promptInput.lower() in ("help", "h"):
             print "HELP\n\
-          Open or o  - Open a file.\n\
+           Open or o - Open a file.\n\
           Write or w - Write a file.\n\
-          Prnt or pb - Print current buffer.\n\
-            Reset    - Reset buffer.\n\
-          Help or h  - This help text.\n\
-          Quit or q  - Quit the program.\n\
+                  pb - Print current buffer.\n\
+                  pl - Print line in buffer.\n\
+               Reset - Reset buffer.\n\
+           Help or h - This help text.\n\
+           Quit or q - Quit the program.\n\
                   q! - Quit and lose changes.\n"
         
         # quit #
@@ -78,6 +80,7 @@ def main():
                 quit()
             else:
                 print "Use q! to exit without saving changes."
+                
         # open file #
         elif promptInput.lower() in ("open", "o"):
             openFile()
@@ -88,7 +91,7 @@ def main():
                 inputMode(textBuffer)
         
         # print buffer #
-        elif promptInput.lower() in ("prnt", "pb"):
+        elif promptInput.lower() == "pb":
             if textBuffer == []:
                 print "Buffer empty"
             else:
@@ -96,8 +99,9 @@ def main():
                     print textBuffer[i]
         
         # print line #
-        elif type(promptInput) == int:
-            printLine(textBuffer, promptInput)
+        elif promptInput == "pl":
+            lineNum = raw_input("Line Number: ")
+            printLine(textBuffer, int(lineNum))
         
         # reset/clear buffer #
         elif promptInput.lower() == "reset":
@@ -107,10 +111,17 @@ def main():
         # write to file #
         elif promptInput.lower() in ("write", "w"):
             fileName = str(raw_input("File to write: "))
-            FILE = open(fileName, 'w+')
+            FILE = open(fileName, 'w')
+            toWriteBuf = ""
             for i in range(0, len(textBuffer)):
-                FILE.write(textBuffer[i])
+                toWriteBuf += str(textBuffer[i])
+                if i == len(textBuffer) - 1:
+                    break
+                toWriteBuf += "\n"
+            FILE.write(toWriteBuf)
             print "Wrote", len(textBuffer), "lines to file", fileName
+            FILE.close()
+            fileWritten = True
             
         else:
             print "?"
