@@ -33,7 +33,7 @@ def main():
       fileLoaded = True
       return textBuffer
 
-    def editMode(buf):
+    def inputMode(buf):
       while True:
         lineInput = str(raw_input()) 
         if lineInput == ".":
@@ -64,7 +64,7 @@ def main():
           Open or o  - Open a file.\n\
           Write or w - Write a file.\n\
           Prnt or pb - Print current buffer.\n\
-          Reset     - Reset buffer.\n\
+            Reset    - Reset buffer.\n\
           Help or h  - This help text.\n\
           Quit or q  - Quit the program.\n\
                   q! - Quit and lose changes.\n"
@@ -79,9 +79,11 @@ def main():
         
         elif promptInput.lower() in ("open", "o"):
             openFile()
+            
         elif promptInput.lower() == "i":
             if fileLoaded == False:
-                editMode(textBuffer) 
+                inputMode(textBuffer)
+                
         elif promptInput.lower() in ("prnt", "pb"):
             if textBuffer == []:
                 print "Buffer empty"
