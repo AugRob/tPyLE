@@ -50,6 +50,7 @@ def main():
         print "Wrote", len(textBuffer), "lines to file", "'" + fileName + "'"
         FILE.close()
         fileWritten = True
+        return fileWritten
 
     def inputMode(buf):
       while True:
