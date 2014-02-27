@@ -34,6 +34,22 @@ def main():
       print "File loaded.\n"
       fileLoaded = True
       return textBuffer
+      
+    def writeFile():
+        fileName = str(raw_input("File to write: "))
+        FILE = open(fileName, 'w')
+        toWriteBuf = ""
+        
+        for i in range(0, len(textBuffer)):
+            toWriteBuf += str(textBuffer[i])
+            if i == len(textBuffer) - 1:
+                break
+            toWriteBuf += "\n"
+            
+        FILE.write(toWriteBuf)
+        print "Wrote", len(textBuffer), "lines to file", "'" + fileName + "'"
+        FILE.close()
+        fileWritten = True
 
     def inputMode(buf):
       while True:
@@ -112,18 +128,7 @@ def main():
         
         # write to file #
         elif promptInput.lower() in ("write", "w"):
-            fileName = str(raw_input("File to write: "))
-            FILE = open(fileName, 'w')
-            toWriteBuf = ""
-            for i in range(0, len(textBuffer)):
-                toWriteBuf += str(textBuffer[i])
-                if i == len(textBuffer) - 1:
-                    break
-                toWriteBuf += "\n"
-            FILE.write(toWriteBuf)
-            print "Wrote", len(textBuffer), "lines to file", "'" + fileName + "'"
-            FILE.close()
-            fileWritten = True
+            writeFile()
             
         else:
             print "?"
