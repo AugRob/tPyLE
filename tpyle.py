@@ -60,12 +60,14 @@ def main():
         else:
           buf.append(str(lineInput))
           fileWritten = False
-          
+
     def printLine(buf, lineNum):
         if abs(lineNum) > len(buf):
             print "Line does not exist!"
         elif lineNum < 0:        #if it's negative make it x from the end of the file
             lineNum = len(buf) - abs(lineNum)
+        elif lineNum == "":
+            print "What line?"
         else:
             print buf[lineNum -1]
 
@@ -119,8 +121,12 @@ def main():
         
         # print line #
         elif promptInput == "pl":
-            lineNum = raw_input("Line Number: ")
-            printLine(textBuffer, int(lineNum))
+            try:
+                lineNum = int(raw_input("Line Number: "))
+            except ValueError:
+                print "Please enter a number."
+            else:        
+                printLine(textBuffer, int(lineNum))
         
         # reset/clear buffer #
         elif promptInput.lower() == "reset":
